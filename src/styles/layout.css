@@ -29,12 +29,14 @@
   gap: 10px;
   font-family: var(--font-hud);
   font-weight: 700;
-  font-size: 0.9rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  min-width: 0;
+  white-space: nowrap;
 }
 
 .brand-dot {
+  flex: none;
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -415,6 +417,15 @@
   .main {
     margin-left: 0;
     padding-top: 84px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hide-xs {
+    display: none;
+  }
+  .brand-mini {
+    font-size: 0.74rem;
   }
 }
 

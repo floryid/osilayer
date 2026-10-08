@@ -81,7 +81,8 @@ export default function App() {
         </a>
         {cur ? (
           <span className="topbar-layer" style={{ '--c': cur.color }}>
-            L{cur.n} · {cur.name}
+            L{cur.n}
+            <span className="hide-xs"> · {cur.name}</span>
           </span>
         ) : (
           <span />
