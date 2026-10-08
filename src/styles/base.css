@@ -1,0 +1,248 @@
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+:root {
+  --bg: #05070d;
+  --bg-2: #0a0f1c;
+  --panel: rgba(14, 20, 36, 0.72);
+  --panel-solid: #0d1424;
+  --border: rgba(130, 160, 255, 0.14);
+  --text: #e6edf9;
+  --muted: #8d9bbd;
+  --cyan: 34 211 238;
+  --violet: 192 92 255;
+  --c: 34 211 238;
+  --font-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-hud: 'Orbitron', 'Rajdhani', 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
+  --radius: 18px;
+  --sidebar: 300px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 84px;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+dl,
+dd {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: 0;
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--c));
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+::selection {
+  background: rgb(var(--c) / 0.35);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#22d3ee66, #c05cff66);
+  border-radius: 10px;
+  border: 2px solid var(--bg);
+}
+
+.icon {
+  flex: none;
+}
+
+/* ---------- Animated background ---------- */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bg-grid {
+  position: absolute;
+  inset: -2px;
+  background-image:
+    linear-gradient(rgba(120, 160, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120, 160, 255, 0.06) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(ellipse at 50% 30%, #000 20%, transparent 75%);
+  animation: gridMove 16s linear infinite;
+}
+
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.35;
+  animation: float 18s ease-in-out infinite alternate;
+}
+.bg-orb.o1 {
+  width: 46vmax;
+  height: 46vmax;
+  left: -12vmax;
+  top: -14vmax;
+  background: radial-gradient(circle, rgb(var(--accent, var(--cyan))), transparent 65%);
+  transition: background 0.8s;
+}
+.bg-orb.o2 {
+  width: 40vmax;
+  height: 40vmax;
+  right: -14vmax;
+  top: 20vh;
+  background: radial-gradient(circle, rgb(var(--violet)), transparent 65%);
+  animation-delay: -6s;
+}
+.bg-orb.o3 {
+  width: 34vmax;
+  height: 34vmax;
+  left: 25vw;
+  bottom: -18vmax;
+  background: radial-gradient(circle, #ff4d6d, transparent 65%);
+  opacity: 0.2;
+  animation-delay: -11s;
+}
+
+.bg-scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 140px;
+  background: linear-gradient(to bottom, transparent, rgba(34, 211, 238, 0.05), transparent);
+  animation: scan 9s linear infinite;
+}
+
+/* ---------- Shared text effects ---------- */
+.grad-text {
+  background: linear-gradient(100deg, rgb(var(--c)), #fff 35%, rgb(var(--c)) 55%, #c05cff 100%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 5s linear infinite;
+}
+
+/* ---------- Keyframes ---------- */
+@keyframes gridMove {
+  to {
+    background-position: 46px 46px, 46px 46px;
+  }
+}
+@keyframes float {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(6vw, 5vh, 0) scale(1.15);
+  }
+}
+@keyframes scan {
+  from {
+    transform: translateY(-160px);
+  }
+  to {
+    transform: translateY(110vh);
+  }
+}
+@keyframes shine {
+  to {
+    background-position: -250% 0;
+  }
+}
+@keyframes spin {
+  to {
+    --angle: 360deg;
+  }
+}
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(var(--c) / 0.55);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgb(var(--c) / 0);
+  }
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

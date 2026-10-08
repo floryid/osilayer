@@ -1,0 +1,95 @@
+// Metadata ringan setiap layer (dipakai sidebar, beranda, dan simulator).
+// `color` berupa triplet RGB agar bisa dipakai di CSS: rgb(var(--c) / .3)
+export const LAYERS = [
+  {
+    n: 1,
+    key: 'physical',
+    name: 'Physical',
+    id: 'Lapisan Fisik',
+    color: '255 77 109',
+    pdu: 'Bit',
+    tagline: 'Mengubah bit menjadi sinyal listrik, cahaya, atau gelombang radio.',
+    header: 'Sinyal',
+    encap: 'Frame diubah menjadi aliran bit (0 dan 1) lalu dikodekan menjadi sinyal listrik / cahaya / radio.',
+    decap: 'Sinyal dari media diterima NIC, disinkronkan clock, dan didekode kembali menjadi aliran bit.',
+  },
+  {
+    n: 2,
+    key: 'datalink',
+    name: 'Data Link',
+    id: 'Lapisan Tautan Data',
+    color: '255 159 28',
+    pdu: 'Frame',
+    tagline: 'Pengiriman antar-node satu jaringan lokal dengan alamat MAC.',
+    header: 'Eth hdr + FCS',
+    encap: 'Paket dibungkus menjadi Frame: ditambah MAC tujuan/sumber di depan dan FCS (CRC) di belakang.',
+    decap: 'NIC memeriksa MAC tujuan & FCS. Jika valid, header Ethernet dibuang dan paket diteruskan ke atas.',
+  },
+  {
+    n: 3,
+    key: 'network',
+    name: 'Network',
+    id: 'Lapisan Jaringan',
+    color: '255 214 10',
+    pdu: 'Packet',
+    tagline: 'Pengalamatan logis (IP) dan routing antar jaringan.',
+    header: 'IP hdr',
+    encap: 'Segmen diberi header IP berisi IP sumber, IP tujuan, TTL. Router menentukan next-hop.',
+    decap: 'IP tujuan dicocokkan dengan alamat host. Header IP dibuang, segmen diteruskan ke TCP/UDP.',
+  },
+  {
+    n: 4,
+    key: 'transport',
+    name: 'Transport',
+    id: 'Lapisan Transport',
+    color: '43 255 136',
+    pdu: 'Segment / Datagram',
+    tagline: 'Komunikasi end-to-end: port, keandalan, flow & congestion control.',
+    header: 'TCP/UDP hdr',
+    encap: 'Data dipecah menjadi segmen; ditambah port sumber/tujuan, sequence number, dan checksum.',
+    decap: 'Segmen disusun ulang sesuai sequence number, ACK dikirim, lalu data diberikan ke aplikasi via port.',
+  },
+  {
+    n: 5,
+    key: 'session',
+    name: 'Session',
+    id: 'Lapisan Sesi',
+    color: '34 211 238',
+    pdu: 'Data',
+    tagline: 'Membuka, mengelola, sinkronisasi, dan menutup sesi komunikasi.',
+    header: 'Session ctrl',
+    encap: 'Sesi dibuka/dipertahankan: token sesi, cookie, checkpoint, dan penanda sinkronisasi ditambahkan.',
+    decap: 'Sesi divalidasi (token / ID sesi), dialog dikelola, lalu data dilanjutkan ke lapisan presentasi.',
+  },
+  {
+    n: 6,
+    key: 'presentation',
+    name: 'Presentation',
+    id: 'Lapisan Presentasi',
+    color: '77 124 255',
+    pdu: 'Data',
+    tagline: 'Penerjemahan format, enkripsi (TLS), dan kompresi data.',
+    header: 'TLS / encode',
+    encap: 'Data diubah ke format standar (UTF-8/JSON), dikompresi, lalu dienkripsi (TLS).',
+    decap: 'Data didekripsi, didekompresi, dan didekode sehingga dapat dibaca oleh aplikasi penerima.',
+  },
+  {
+    n: 7,
+    key: 'application',
+    name: 'Application',
+    id: 'Lapisan Aplikasi',
+    color: '192 92 255',
+    pdu: 'Data',
+    tagline: 'Antarmuka layanan jaringan bagi aplikasi & pengguna.',
+    header: 'HTTP hdr',
+    encap: 'Aplikasi (browser) membuat permintaan HTTP: GET /index.html beserta header seperti Host & User-Agent.',
+    decap: 'Server/aplikasi memproses permintaan HTTP dan menyiapkan respons untuk pengguna.',
+  },
+]
+
+export const MNEMONIC = {
+  down: ['All', 'People', 'Seem', 'To', 'Need', 'Data', 'Processing'], // 7 -> 1
+  up: ['Please', 'Do', 'Not', 'Throw', 'Sausage', 'Pizza', 'Away'], // 1 -> 7
+}
+
+export const rgb = (c, a) => (a === undefined ? `rgb(${c})` : `rgb(${c} / ${a})`)
